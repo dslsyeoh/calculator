@@ -1,8 +1,6 @@
 package com.dsl.enumerate;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 class Calculator
 {
