@@ -5,70 +5,79 @@
 
 package com.dsl.calculator;
 
-import java.util.*;
+import static com.dsl.calculator.Operator.*;
 
 class Calculator
 {
-    private Operator operator;
-    private List<Map<Operator, Map<String, Double>>> evaluators = new ArrayList<>();
     private double total;
 
-    Calculator() { }
+    Calculator() {}
 
-    double calculate(double v1, double v2)
+    Calculator add(double value)
     {
-        return operator.getEvaluator().evaluate(v1, v2);
+        return chain(ADDITION, total, value);
     }
 
-    Calculator chain(double value)
+    Calculator subtract(double value)
     {
-        Map<String, Double> valueMap = new LinkedHashMap<>();
-        valueMap.put("v2", value);
-
-        return store(operator, valueMap);
+        return chain(SUBTRACTION, total, value);
     }
 
-    Calculator chain(Operator operator, double value)
+    Calculator multiply(double value)
     {
-        Map<String, Double> valueMap = new LinkedHashMap<>();
-        valueMap.put("v2", value);
-
-        return store(operator, valueMap);
+        return chain(MULTIPLICATION, total, value);
     }
 
-    Calculator chain(Operator operator, double v1, double v2)
+    Calculator divide(double value)
     {
-        Map<String, Double> valueMap = new LinkedHashMap<>();
-        valueMap.put("v1", v1);
-        valueMap.put("v2", v2);
-
-        return store(operator, valueMap);
+        return chain(DIVISION, total, value);
     }
 
-    double calculate()
+    Calculator add(double v1, double v2)
     {
-        evaluators.stream().map(Map::entrySet).flatMap(Collection::stream).filter(entry -> Objects.nonNull(entry.getKey()))
-                .forEach(entry -> {
-                    Map<String, Double> valueMap = entry.getValue();
-                    total = entry.getKey().getEvaluator().evaluate(Objects.isNull(valueMap.get("v1")) ? total : valueMap.get("v1"), valueMap.get("v2"));
-                });
+        return chain(ADDITION, v1, v2, true);
+    }
 
-        evaluators.clear();
+    Calculator subtract(double v1, double v2)
+    {
+        return chain(SUBTRACTION, v1, v2, true);
+    }
+
+    Calculator multiply(double v1, double v2)
+    {
+        return chain(MULTIPLICATION, v1, v2, true);
+    }
+
+    Calculator divide(double v1, double v2)
+    {
+        return chain(DIVISION, v1, v2, true);
+    }
+
+    private Calculator chain(Operator operator, double v1, double v2)
+    {
+        return chain(operator, v1, v2, false);
+    }
+
+    private Calculator chain(Operator operator, double v1, double v2, boolean isAccumulate)
+    {
+        if(isAccumulate)
+        {
+            total += operator.getEvaluator().evaluate(v1, v2);
+        }
+        else
+        {
+            total = operator.getEvaluator().evaluate(v1, v2);
+        }
+        return this;
+    }
+
+    double getTotal()
+    {
         return total;
     }
 
-    void setOperator(Operator operator)
+    void clear()
     {
-        this.operator = operator;
-    }
-
-    private Calculator store(Operator operator, Map<String, Double> valueMap)
-    {
-        setOperator(operator);
-        Map<Operator, Map<String, Double>> evaluatorMap = new LinkedHashMap<>();
-        evaluatorMap.put(operator, valueMap);
-        evaluators.add(evaluatorMap);
-
-        return this;
+        total = 0;
     }
 }
