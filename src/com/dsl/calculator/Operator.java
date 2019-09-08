@@ -1,4 +1,9 @@
-package com.dsl.enumerate;
+/*
+ * Author Steven Yeoh
+ * Copyright (c) 2019. All rights reserved.
+ */
+
+package com.dsl.calculator;
 
 import java.util.Arrays;
 import java.util.Objects;

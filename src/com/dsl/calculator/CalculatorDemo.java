@@ -1,8 +1,13 @@
-package com.dsl.enumerate;
+/*
+ * Author Steven Yeoh
+ * Copyright (c) 2019. All rights reserved.
+ */
 
-import static com.dsl.enumerate.Operator.*;
+package com.dsl.calculator;
 
-public class EnumDemo
+import static com.dsl.calculator.Operator.*;
+
+public class CalculatorDemo
 {
     public static void main(String[] args)
     {
