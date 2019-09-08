@@ -25,43 +25,43 @@ class CalculatorTest
     }
 
     @Test
-    void test_addition()
+    void testAddition()
     {
         assertEquals(5, calculator.add(1.5, 3.5).getTotal());
     }
 
     @Test
-    void test_subtraction()
+    void testSubtraction()
     {
         assertEquals(2, calculator.subtract(4.5, 2.5).getTotal());
     }
 
     @Test
-    void test_multiplication()
+    void testMultiplication()
     {
         assertEquals(6, calculator.multiply(3, 2).getTotal());
     }
 
     @Test
-    void test_division()
+    void testDivision()
     {
         assertEquals(5.5, calculator.divide(11, 2).getTotal());
     }
 
     @Test
-    void test_mix_operations_1()
+    void testMixOperations_1()
     {
         assertEquals(27, calculator.add(3).multiply(3).multiply(3).getTotal());
     }
 
     @Test
-    void test_mix_operations_2()
+    void testMixOperations_2()
     {
         assertEquals(15, calculator.add(1.5, 3.5).multiply(3).getTotal());
     }
 
     @Test
-    void test_mix_operations_3()
+    void testMixOperations_3()
     {
         assertEquals(8, calculator.add(1.5, 3.5).add(3).getTotal());
     }
